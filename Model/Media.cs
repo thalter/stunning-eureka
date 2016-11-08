@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ImageExtrator.Model
 {
+    /// <summary>
+    /// Media (images, movies, etc.)
+    /// </summary>
     [Table("media_table")]
     public class Media
     {
@@ -12,7 +15,8 @@ namespace ImageExtrator.Model
 
         public int change_id { get; set; }
 
-        public string full_filepath { get; set; }
+        [Column("full_filepath")]
+        public string FullName { get; set; }
 
         public string filepath_search_index { get; set; }
 
@@ -28,6 +32,10 @@ namespace ImageExtrator.Model
 
         public int rendition_description_id { get; set; }
 
-        public HashSet<Tag> Tags {get;set;} = new HashSet<Tag>();
+        /// <summary>
+        /// Collection of Tags
+        /// </summary>
+        /// <returns></returns>
+        public virtual ICollection<MediaTag> MediaTags { get; set; }
     }
 }

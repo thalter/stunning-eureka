@@ -1,23 +1,40 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using ImageExtrator.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ImageExtrator
 {
     public class Program
     {
+        public static ILoggerFactory LoggerFactory { get; } = new LoggerFactory();
+
         public static void Main(string[] args)
         {
+            //LoggerFactory.AddFile("Logs/myapp-{Date}.txt");
+            LoggerFactory.AddConsole();
+
+            ILogger Logger = LoggerFactory.CreateLogger<Program>();
+            Logger.LogInformation("Starting Image Extractor");
+
             FileInfo fi = new FileInfo("/Users/TomHalter/Documents/catalog.pse14db");
-            if(!fi.Exists){
-                Console.WriteLine("File not found");
+            if (!fi.Exists)
+            {
+                Logger.LogCritical("File not found");
             }
 
             PseContext db = new PseContext($"Filename={fi.FullName}");
 
-            foreach (Media m in db.Medias)
+            foreach (Media m in db.Medias.Include(media => media.MediaTags).ThenInclude(mediaTag => mediaTag.Tag))
             {
-                Console.WriteLine(m.full_filepath);
+                Logger.LogInformation($"media_id:{m.id} {m.FullName}");
+
+                foreach (MediaTag t in m.MediaTags)
+                {
+                    Logger.LogInformation(t.ToString());
+                }
             }
         }
     }

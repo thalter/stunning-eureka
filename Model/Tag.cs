@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,5 +30,7 @@ namespace ImageExtrator.Model
 
         public int applies_to_all_in_version_stack { get; set; }
 
+        [InverseProperty("Tag")]
+        public virtual ICollection<MediaTag> MediaTags { get; set; }
     }
 }

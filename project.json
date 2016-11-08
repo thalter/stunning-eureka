@@ -5,9 +5,11 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "System.Data.SQLite": "1.0.103",
+    "System.Data.SQLite": "*",
     "Microsoft.EntityFrameworkCore": "*",
-    "Microsoft.EntityFrameworkCore.Sqlite": "*"
+    "Microsoft.EntityFrameworkCore.Sqlite": "*",
+     "Serilog.Extensions.Logging.File": "1.0.0",
+     "Microsoft.Extensions.Logging.Console":"*"
   },
   "frameworks": {
     "netcoreapp1.0": {
