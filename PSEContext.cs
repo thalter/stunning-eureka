@@ -21,18 +21,24 @@ namespace ImageExtrator
             optionsBuilder.UseSqlite(ConnectionString);
         }
 
-            protected override void OnModelCreating(ModelBuilder modelBuilder) 
-    {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             // Composite primary key 
             modelBuilder.Entity<MediaTag>()
             .HasKey(mt => new { mt.media_id, mt.tag_id });
-        } 
 
+            // Composite primary key 
+            modelBuilder.Entity<MediaMetadata>()
+            .HasKey(mt => new { mt.media_id, mt.metadata_id });
+        }
 
         public DbSet<Media> Medias { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<MediaTag> MediaTags { get; set; }
+
+        public DbSet<MediaMetadata> MediaMetadata { get; set; }
+
     }
 }

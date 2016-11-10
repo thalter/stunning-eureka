@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ImageExtrator.Model
 {
-
     [Table("tag_to_media_table")]
     public class MediaTag
     {

@@ -27,13 +27,18 @@ namespace ImageExtrator
 
             PseContext db = new PseContext($"Filename={fi.FullName}");
 
-            foreach (Media m in db.Medias.Include(media => media.MediaTags).ThenInclude(mediaTag => mediaTag.Tag))
+            foreach (Media m in db.Medias.Include(media => media.MediaMetadata).Include(media => media.MediaTags).ThenInclude(mediaTag => mediaTag.Tag))
             {
                 Logger.LogInformation($"media_id:{m.id} {m.FullName}");
 
                 foreach (MediaTag t in m.MediaTags)
                 {
                     Logger.LogInformation(t.ToString());
+                }
+
+                foreach (MediaMetadata mm in m.MediaMetadata)
+                {
+                    Logger.LogInformation(mm.ToString());
                 }
             }
         }

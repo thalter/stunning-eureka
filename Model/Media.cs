@@ -15,12 +15,18 @@ namespace ImageExtrator.Model
 
         public int change_id { get; set; }
 
+        /// <summary>
+        /// Full path (including name) of this <see cref="Media"/> file.
+        /// </summary>
+        /// <returns></returns>
         [Column("full_filepath")]
         public string FullName { get; set; }
 
-        public string filepath_search_index { get; set; }
+        [Column("filepath_search_index")]
+        public string FilePath { get; set; }
 
-        public string filename_search_index { get; set; }
+        [Column("filename_search_index")]
+        public string FileName { get; set; }
 
         public string mime_type { get; set; }
 
@@ -36,6 +42,12 @@ namespace ImageExtrator.Model
         /// Collection of Tags
         /// </summary>
         /// <returns></returns>
-        public virtual ICollection<MediaTag> MediaTags { get; set; }
+        public virtual ICollection<MediaTag> MediaTags { get; set; } = new HashSet<MediaTag>();
+
+        /// <summary>
+        /// Collection of Metadata
+        /// </summary>
+        /// <returns></returns>
+        public virtual ICollection<MediaMetadata> MediaMetadata { get; set; } = new HashSet<MediaMetadata>();
     }
 }
