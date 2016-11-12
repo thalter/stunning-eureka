@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using ImageExtrator.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using System.IO;
+using ImageExtrator.Exporter;
 using Microsoft.Extensions.Logging;
 
 namespace ImageExtrator
@@ -11,9 +8,9 @@ namespace ImageExtrator
     {
         public static ILoggerFactory LoggerFactory { get; } = new LoggerFactory();
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            //LoggerFactory.AddFile("Logs/myapp-{Date}.txt");
+            LoggerFactory.AddFile("Logs/myapp-{Date}.log");
             LoggerFactory.AddConsole();
 
             ILogger Logger = LoggerFactory.CreateLogger<Program>();
@@ -23,26 +20,20 @@ namespace ImageExtrator
             if (!fi.Exists)
             {
                 Logger.LogCritical("File not found");
+                return 1;
             }
 
             PseContext db = new PseContext($"Filename={fi.FullName}");
 
-            foreach (Media m in db.Medias.Include(media => media.MediaMetadata).Include(media => media.MediaTags).ThenInclude(mediaTag => mediaTag.Tag))
+            MediaExporter exporter = new MediaExporter
             {
-                Logger.LogInformation($"media_id:{m.id} {m.FullName}");
+                Context = db,
+                Simulate = true
+            };
 
-                foreach (MediaTag t in m.MediaTags)
-                {
-                    Logger.LogInformation(t.ToString());
-                }
+            MediaExportResult mer = exporter.Export();
 
-                foreach (MediaMetadata mm in m.MediaMetadata)
-                {
-                    Logger.LogInformation($"{mm}");
-                    AbstractMetadata am = mm.GetMetadata(db);
-                    Logger.LogInformation($"{am.Description.ToString()} value:{am.ToValue().ToString()}");
-                }
-            }
+            return 0;
         }
     }
 }

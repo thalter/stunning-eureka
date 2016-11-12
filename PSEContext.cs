@@ -48,5 +48,7 @@ namespace ImageExtrator
 
         public DbSet<MetadataDescription> MetadataDescriptions { get; set; }
 
+        public DbSet<MediaVersion> MediaVersions { get; set; }
+
     }
 }

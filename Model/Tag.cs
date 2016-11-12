@@ -14,6 +14,10 @@ namespace ImageExtrator.Model
 
         public string name { get; set; }
 
+        /// <summary>
+        /// Tag <see cref="id"/> of Parent <see cref="Tag"/>. 
+        /// </summary>
+        /// <returns></returns>
         public int parent_id { get; set; }
 
         public int sibling_index { get; set; }
