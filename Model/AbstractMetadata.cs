@@ -13,6 +13,10 @@ namespace ImageExtrator.Model
         [ForeignKeyAttribute("description_id")]
          public MetadataDescription Description { get;set; }
 
+        /// <summary>
+        /// Returns value as a native data type (will need to cast from Object)
+        /// </summary>
+        /// <returns></returns>
         public abstract object ToValue();
     }
 }

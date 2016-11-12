@@ -40,8 +40,7 @@ namespace ImageExtrator
                 {
                     Logger.LogInformation($"{mm}");
                     AbstractMetadata am = mm.GetMetadata(db);
-                    Logger.LogInformation(am.Description.ToString());
-                    Logger.LogInformation(am.ToValue().ToString());
+                    Logger.LogInformation($"{am.Description.ToString()} value:{am.ToValue().ToString()}");
                 }
             }
         }
