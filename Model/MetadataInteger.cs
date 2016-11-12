@@ -1,21 +1,19 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ImageExtrator.Model
 {
     [Table("metadata_integer_table")]
-    public class MetadataInteger
+    public class MetadataInteger : AbstractMetadata
     {
-        [Key]
-        public int id { get; set; }
-
-        public int description_id { get; set; }
-
         public int value { get; set; }
 
         public override string ToString()
         {
             return $"id:{id} value:{value}";
+        }
+
+    public override object ToValue(){
+            return value;
         }
     }
 }

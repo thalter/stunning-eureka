@@ -38,7 +38,15 @@ namespace ImageExtrator
 
         public DbSet<MediaTag> MediaTags { get; set; }
 
-        public DbSet<MediaMetadata> MediaMetadata { get; set; }
+        public DbSet<MetadataInteger> MetadataIntegers { get; set; }
+
+        public DbSet<MetadataString> MetadataStrings { get; set; }
+
+        public DbSet<MetadataDateTime> MetadataDateTime { get; set; }
+
+        public DbSet<MetadataDecimal> MetadataDecimals { get; set; }
+
+        public DbSet<MetadataDescription> MetadataDescriptions { get; set; }
 
     }
 }

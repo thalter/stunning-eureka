@@ -38,7 +38,10 @@ namespace ImageExtrator
 
                 foreach (MediaMetadata mm in m.MediaMetadata)
                 {
-                    Logger.LogInformation(mm.ToString());
+                    Logger.LogInformation($"{mm}");
+                    AbstractMetadata am = mm.GetMetadata(db);
+                    Logger.LogInformation(am.Description.ToString());
+                    Logger.LogInformation(am.ToValue().ToString());
                 }
             }
         }
